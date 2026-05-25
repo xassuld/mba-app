@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --mba-bg: #0a0a0a;
+    --mba-surface: #111111;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  html.light body {
+    @apply bg-gray-50 text-gray-900;
+  }
+
+  html.light .bg-mba-bg {
+    @apply bg-gray-50;
+  }
+
+  html.light .bg-mba-surface {
+    @apply bg-white border-gray-200;
+  }
+
+  html.light .bg-mba-surfaceHover {
+    @apply bg-gray-100;
+  }
+
+  html.light .border-mba-border {
+    @apply border-gray-200;
+  }
+
+  html.light .text-white {
+    @apply text-gray-900;
+  }
+
+  html.light .text-mba-muted {
+    @apply text-gray-500;
+  }
+
+  html.light header {
+    @apply bg-white/95 border-gray-200;
+  }
+
+  body {
+    @apply bg-mba-bg text-white antialiased;
+  }
+}
+
+@layer utilities {
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
