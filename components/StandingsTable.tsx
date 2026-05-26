@@ -7,6 +7,7 @@ import type { Standing } from "@/lib/types";
 import { useLanguage } from "@/context/LanguageContext";
 import { getTeamById, sortStandings, cn } from "@/lib/utils";
 import { t } from "@/lib/i18n";
+import HorizontalScroll from "@/components/HorizontalScroll";
 
 interface StandingsTableProps {
   data: Standing[];
@@ -46,8 +47,64 @@ export default function StandingsTable({
       )
     ) : null;
 
+  if (compact) {
+    return (
+      <>
+        <div className="space-y-2 md:hidden">
+          {sorted.map((row) => {
+            const team = getTeamById(row.teamId);
+            if (!team) return null;
+            const teamName = lang === "mn" ? team.nameMn : team.name;
+            return (
+              <button
+                key={row.teamId}
+                type="button"
+                disabled={!clickable}
+                onClick={
+                  clickable ? () => router.push(`/teams/${team.slug}`) : undefined
+                }
+                className={cn(
+                  "flex w-full items-center gap-3 rounded-xl border border-mba-border bg-mba-surface p-3 text-left transition-colors",
+                  clickable && "active:bg-mba-surfaceHover"
+                )}
+              >
+                <span className="w-6 font-bold text-mba-gold">{row.rank}</span>
+                <span
+                  className="on-color flex h-9 w-9 shrink-0 items-center justify-center rounded text-[10px] font-bold"
+                  style={{ backgroundColor: team.primaryColor }}
+                >
+                  {team.abbreviation}
+                </span>
+                <span className="min-w-0 flex-1 truncate font-medium text-mba-text">
+                  {teamName}
+                </span>
+                <span className="shrink-0 text-sm text-mba-muted">
+                  {row.wins}-{row.losses}
+                </span>
+                <span className="shrink-0 text-sm font-semibold text-mba-text">
+                  {(row.pct * 100).toFixed(1)}%
+                </span>
+              </button>
+            );
+          })}
+        </div>
+        <div className="hidden overflow-x-auto rounded-xl border border-mba-border md:block">
+          {renderTable()}
+        </div>
+      </>
+    );
+  }
+
   return (
-    <div className="overflow-x-auto rounded-xl border border-mba-border">
+    <HorizontalScroll>
+      <div className="overflow-x-auto rounded-xl border border-mba-border">
+        {renderTable()}
+      </div>
+    </HorizontalScroll>
+  );
+
+  function renderTable() {
+    return (
       <table className="w-full min-w-[500px] text-sm">
         <thead>
           <tr className="border-b border-mba-border bg-mba-surface text-left text-xs uppercase tracking-wider text-mba-muted">
@@ -126,7 +183,7 @@ export default function StandingsTable({
                     >
                       {team.abbreviation}
                     </span>
-                    <span className="font-medium text-white group-hover:text-mba-red">
+                    <span className="font-medium text-mba-text group-hover:text-mba-red">
                       {teamName}
                     </span>
                   </div>
@@ -161,6 +218,6 @@ export default function StandingsTable({
           })}
         </tbody>
       </table>
-    </div>
-  );
+    );
+  }
 }

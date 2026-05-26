@@ -111,6 +111,10 @@ export const translations = {
     mn: "DNP - \u0414\u0430\u0440\u043b\u0430\u0430\u0433\u0438\u0439\u043d \u0448\u0438\u0439\u0434\u0432\u044d\u0440",
     en: "DNP - Coach's Decision",
   },
+  scrollForMore: {
+    mn: "\u2192 \u0417\u04af\u04af\u0445 \u0433\u04af\u043b\u0433\u044d\u044d \u0434\u044d\u043b\u0433\u044d\u044d\u0440\u044d\u043d \u0433\u04af\u043b\u0430\u0430",
+    en: "Swipe for more \u2192",
+  },
   final: { mn: "\u0414\u0443\u0443\u0441\u0441\u0430\u043d", en: "Final" },
   live: { mn: "\u0428\u0443\u0443\u0434", en: "Live" },
   upcoming: { mn: "\u0423\u0434\u0430\u0445\u0433\u04af\u0439", en: "Upcoming" },

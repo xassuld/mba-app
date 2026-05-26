@@ -39,7 +39,7 @@ export default function GameCard({ game, compact = false }: GameCardProps) {
       className={cn(
         "w-full rounded-xl border border-mba-border bg-mba-surface text-left transition-colors",
         "hover:border-mba-red/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-mba-red",
-        compact ? "p-3" : "p-4"
+        compact ? "p-3 py-3.5" : "p-4 py-4"
       )}
     >
       <div className="mb-2 flex items-center justify-between text-xs">
@@ -72,7 +72,7 @@ export default function GameCard({ game, compact = false }: GameCardProps) {
           </p>
         </div>
         <div className="shrink-0 px-2 text-center">
-          <p className="font-display text-xl font-bold text-white">{score}</p>
+          <p className="font-display text-lg font-bold text-mba-text sm:text-xl">{score}</p>
           {game.quarter && (
             <p className="text-[10px] text-mba-red">{game.quarter}</p>
           )}

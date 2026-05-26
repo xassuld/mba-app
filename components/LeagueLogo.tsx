@@ -3,7 +3,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 const SIZES = {
-  nav: { width: 140, height: 48, className: "h-10 w-auto sm:h-11" },
+  nav: { width: 140, height: 48, className: "h-8 w-auto max-w-[110px] sm:h-11 sm:max-w-[140px]" },
   footer: { width: 160, height: 56, className: "h-14 w-auto" },
   hero: { width: 220, height: 80, className: "h-16 w-auto sm:h-20" },
 } as const;

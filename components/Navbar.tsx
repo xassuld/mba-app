@@ -48,7 +48,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-mba-border bg-mba-surface/95 shadow-sm backdrop-blur-md dark:shadow-none">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 lg:px-6">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-2.5 sm:gap-4 sm:px-4 sm:py-3 lg:px-6">
         <LeagueLogo size="nav" link />
 
         <div className="hidden items-center gap-1 lg:flex">
@@ -121,7 +121,7 @@ export default function Navbar() {
 
           <button
             onClick={toggleTheme}
-            className="rounded-md border border-mba-border p-2 text-mba-muted transition-colors hover:border-mba-gold hover:text-mba-gold"
+            className="hidden rounded-md border border-mba-border p-2 text-mba-muted transition-colors hover:border-mba-gold hover:text-mba-gold sm:flex"
             aria-label={theme === "dark" ? t("lightMode", lang) : t("darkMode", lang)}
           >
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
@@ -180,8 +180,15 @@ export default function Navbar() {
                   {lang === "mn" ? item.labelMn : item.labelEn}
                 </Link>
               ))}
-              <div className="pt-2">
+              <div className="flex items-center gap-2 pt-2">
                 <LanguageToggle />
+                <button
+                  onClick={toggleTheme}
+                  className="rounded-md border border-mba-border p-2 text-mba-muted"
+                  aria-label={theme === "dark" ? t("lightMode", lang) : t("darkMode", lang)}
+                >
+                  {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+                </button>
               </div>
             </div>
           </motion.div>

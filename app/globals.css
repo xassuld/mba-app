@@ -37,7 +37,11 @@
   }
 
   body {
-    @apply bg-mba-bg text-mba-text antialiased;
+    @apply overflow-x-hidden bg-mba-bg text-mba-text antialiased;
+  }
+
+  html {
+    -webkit-tap-highlight-color: transparent;
   }
 
   /* White text on colored badges / team marks */
@@ -71,5 +75,13 @@
 
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  .pb-safe {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+  }
+
+  .pt-safe {
+    padding-top: max(0px, env(safe-area-inset-top));
   }
 }

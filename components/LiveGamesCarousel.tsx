@@ -44,7 +44,7 @@ export default function LiveGamesCarousel() {
     <section className="mb-12">
       <div className="mb-4 flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <h2 className="font-display text-xl font-bold uppercase tracking-wider text-white">
+          <h2 className="font-display text-lg font-bold uppercase tracking-wider text-mba-text sm:text-xl">
             {t("ongoingGames", lang)}
           </h2>
           <span className="flex items-center gap-1.5 rounded-full bg-mba-red px-3 py-1 text-xs font-bold text-on-brand">

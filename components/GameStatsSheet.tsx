@@ -83,13 +83,13 @@ export default function GameStatsSheet({
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
             transition={{ type: "spring", damping: 28, stiffness: 320 }}
-            className="fixed inset-x-0 bottom-0 z-[201] flex h-[min(92dvh,920px)] flex-col rounded-t-2xl border border-mba-border bg-mba-bg shadow-2xl"
+            className="fixed inset-x-0 bottom-0 z-[201] flex h-[100dvh] max-h-[100dvh] flex-col rounded-none border border-mba-border bg-mba-bg shadow-2xl sm:h-[min(92dvh,920px)] sm:max-h-[92dvh] sm:rounded-t-2xl"
           >
-            <div className="flex shrink-0 items-center justify-between border-b border-mba-border bg-mba-surface px-4 py-3">
+            <div className="flex shrink-0 items-center justify-between border-b border-mba-border bg-mba-surface px-4 py-3 pt-safe">
               <div className="min-w-0">
                 <h2
                   id="game-stats-title"
-                  className="font-display text-lg font-bold uppercase tracking-wide text-white"
+                  className="font-display text-lg font-bold uppercase tracking-wide text-mba-text"
                 >
                   {t("gameStats", lang)}
                 </h2>
@@ -113,15 +113,15 @@ export default function GameStatsSheet({
 
             <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
               <div className="border-b border-mba-border bg-mba-surface px-4 py-4">
-                <div className="flex items-center justify-between gap-4">
+                <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-between">
                   <TeamScoreChip
                     abbr={home.abbreviation}
                     color={home.primaryColor}
                     name={homeName}
                     score={game.homeScore}
                   />
-                  <div className="shrink-0 text-center">
-                    <p className="font-display text-3xl font-bold text-white">
+                  <div className="order-first shrink-0 text-center sm:order-none">
+                    <p className="font-display text-3xl font-bold text-mba-text sm:text-3xl">
                       {score}
                     </p>
                     {game.status === "live" && (
@@ -160,13 +160,13 @@ export default function GameStatsSheet({
                             key={q.label}
                             className="border-t border-mba-border/50"
                           >
-                            <td className="px-3 py-1.5 font-medium text-white">
+                            <td className="px-3 py-1.5 font-medium text-mba-text">
                               {q.label}
                             </td>
-                            <td className="px-3 py-1.5 text-center text-white">
+                            <td className="px-3 py-1.5 text-center text-mba-text">
                               {q.home}
                             </td>
-                            <td className="px-3 py-1.5 text-center text-white">
+                            <td className="px-3 py-1.5 text-center text-mba-text">
                               {q.away}
                             </td>
                           </tr>
@@ -204,7 +204,7 @@ export default function GameStatsSheet({
                 )}
               </div>
 
-              <p className="bg-neutral-100 px-4 pb-6 text-center text-xs text-neutral-500">
+              <p className="bg-neutral-100 px-4 pb-safe text-center text-xs text-neutral-500 sm:pb-6">
                 {lang === "mn" ? game.venueMn : game.venue}
               </p>
             </div>
@@ -232,8 +232,8 @@ function TeamScoreChip({
   return (
     <div
       className={cn(
-        "flex min-w-0 flex-1 items-center gap-2",
-        align === "right" && "flex-row-reverse text-right"
+        "flex min-w-0 flex-1 items-center justify-center gap-2 sm:justify-start",
+        align === "right" && "sm:flex-row-reverse sm:text-right"
       )}
     >
       <div
@@ -242,8 +242,8 @@ function TeamScoreChip({
       >
         {abbr}
       </div>
-      <div className="min-w-0">
-        <p className="truncate text-xs font-semibold text-white">{name}</p>
+      <div className="min-w-0 max-sm:hidden sm:block">
+        <p className="truncate text-xs font-semibold text-mba-text">{name}</p>
         {score !== undefined && (
           <p className="font-display text-xl font-bold text-mba-red">{score}</p>
         )}

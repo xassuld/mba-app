@@ -41,7 +41,7 @@ export default function ScoreBoard({ game, featured = false }: ScoreBoardProps) 
         className="relative w-full overflow-hidden rounded-2xl border border-mba-border bg-hero-gradient text-left transition-colors hover:border-mba-red/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-mba-red"
       >
         <div className="absolute inset-0 bg-[url('/images/court-pattern.svg')] opacity-5" />
-        <div className="relative px-6 py-10 md:px-10 md:py-14">
+        <div className="relative px-4 py-8 sm:px-6 sm:py-10 md:px-10 md:py-14">
           <div className="mb-6 flex items-center gap-3">
             <span className="text-xs font-bold uppercase tracking-widest text-mba-gold">
               {t("featuredGame", lang)}
@@ -54,10 +54,10 @@ export default function ScoreBoard({ game, featured = false }: ScoreBoardProps) 
             )}
           </div>
 
-          <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
+          <div className="flex flex-col items-center gap-6 sm:gap-8 md:flex-row md:justify-between">
             <TeamBlock team={home} name={homeName} score={game.homeScore} isLive={game.status === "live"} />
-            <div className="text-center">
-              <p className="font-display text-5xl font-bold text-white md:text-6xl">
+            <div className="order-first text-center md:order-none">
+              <p className="font-display text-4xl font-bold text-mba-text sm:text-5xl md:text-6xl">
                 {score}
               </p>
               {game.quarter && (
@@ -103,10 +103,10 @@ export default function ScoreBoard({ game, featured = false }: ScoreBoardProps) 
             {getStatusLabel(game.status, lang)}
           </span>
         </div>
-        <div className="flex items-center justify-between">
-          <span className="font-medium">{homeName}</span>
-          <span className="font-display text-xl font-bold">{score}</span>
-          <span className="font-medium">{awayName}</span>
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+          <span className="truncate text-left text-sm font-medium sm:text-base">{homeName}</span>
+          <span className="font-display text-lg font-bold sm:text-xl">{score}</span>
+          <span className="truncate text-right text-sm font-medium sm:text-base">{awayName}</span>
         </div>
       </button>
       <GameStatsSheet
@@ -134,25 +134,25 @@ function TeamBlock({
   return (
     <div
       className={cn(
-        "flex flex-1 items-center gap-4",
-        align === "right" && "flex-row-reverse text-right"
+        "flex w-full flex-1 items-center gap-3 sm:gap-4 md:w-auto",
+        align === "right" && "md:flex-row-reverse md:text-right"
       )}
     >
       <div
-        className="on-color flex h-20 w-20 items-center justify-center rounded-2xl font-display text-2xl font-bold shadow-lg md:h-24 md:w-24"
+        className="on-color flex h-14 w-14 shrink-0 items-center justify-center rounded-xl font-display text-lg font-bold shadow-lg sm:h-20 sm:w-20 sm:rounded-2xl sm:text-2xl md:h-24 md:w-24"
         style={{ backgroundColor: team.primaryColor }}
       >
         {team.abbreviation}
       </div>
       <div>
-        <p className="font-display text-xl font-bold text-white md:text-2xl">
+        <p className="truncate font-display text-base font-bold text-mba-text sm:text-xl md:text-2xl">
           {name}
         </p>
         {score !== undefined && (
           <p
             className={cn(
-              "font-display text-3xl font-bold md:text-4xl",
-              isLive ? "text-mba-red" : "text-white"
+              "font-display text-2xl font-bold sm:text-3xl md:text-4xl",
+              isLive ? "text-mba-red" : "text-mba-text"
             )}
           >
             {score}

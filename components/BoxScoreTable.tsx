@@ -88,14 +88,21 @@ export default function BoxScoreTable({
 
   return (
     <section className="overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm">
-      <div className="border-b border-neutral-200 px-4 py-3">
-        <h3 className="font-display text-base font-bold uppercase tracking-wide text-neutral-900">
+      <div className="border-b border-neutral-200 px-3 py-3 sm:px-4">
+        <h3 className="font-display text-sm font-bold uppercase tracking-wide text-neutral-900 sm:text-base">
           {teamName}
         </h3>
         <p className="mt-1 text-xs text-neutral-500">{t("boxScoreHint", lang)}</p>
       </div>
 
-      <div className="overflow-x-auto">
+      <div className="space-y-2 p-3 md:hidden">
+        {players.map((line) => (
+          <MobilePlayerCard key={line.playerId} line={line} lang={lang} />
+        ))}
+        <MobileTotalsCard totals={totals} lang={lang} />
+      </div>
+
+      <div className="hidden overflow-x-auto md:block">
         <table className="w-full min-w-[1100px] border-collapse text-[11px]">
           <thead>
             <tr className="bg-neutral-100 text-[10px] font-semibold uppercase tracking-wide text-neutral-500">
@@ -320,5 +327,130 @@ function PlayerAvatar({ number }: { number: number }) {
     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-neutral-200 text-[10px] font-bold text-neutral-600">
       {number}
     </span>
+  );
+}
+
+function MobilePlayerCard({
+  line,
+  lang,
+}: {
+  line: PlayerBoxScore;
+  lang: Language;
+}) {
+  const player = getPlayerById(line.playerId);
+  if (!player) return null;
+
+  const name = lang === "mn" ? player.nameMn : player.name;
+  const pos = lang === "mn" ? player.positionMn : player.position;
+
+  if (line.dnp) {
+    return (
+      <div className="rounded-lg border border-neutral-200 bg-neutral-50 px-3 py-2.5">
+        <div className="flex items-center gap-2">
+          <PlayerAvatar number={player.number} />
+          <div className="min-w-0">
+            <Link
+              href={`/players/${player.id}`}
+              className="font-semibold text-[#006BB6]"
+            >
+              {name}
+            </Link>
+            <p className="text-[10px] text-neutral-500">{pos}</p>
+          </div>
+        </div>
+        <p className="mt-2 text-xs text-neutral-600">
+          {line.dnp === "coach" ? t("dnpCoach", lang) : line.dnp}
+        </p>
+      </div>
+    );
+  }
+
+  const primary = [
+    { label: t("min", lang), value: line.min },
+    { label: t("pts", lang), value: line.pts },
+    { label: t("reb", lang), value: line.reb },
+    { label: t("ast", lang), value: line.ast },
+  ];
+
+  const secondary = [
+    { label: t("fgm", lang), value: `${line.fgm}/${line.fga}` },
+    { label: t("tpm", lang), value: `${line.tpm}/${line.tpa}` },
+    { label: t("ftm", lang), value: `${line.ftm}/${line.fta}` },
+    { label: t("stl", lang), value: line.stl },
+    { label: t("blk", lang), value: line.blk },
+    { label: t("to", lang), value: line.to },
+    { label: t("pf", lang), value: line.pf },
+    {
+      label: t("plusMinus", lang),
+      value:
+        (line.plusMinus ?? 0) > 0
+          ? `+${line.plusMinus}`
+          : String(line.plusMinus ?? 0),
+    },
+  ];
+
+  return (
+    <div className="rounded-lg border border-neutral-200 px-3 py-2.5">
+      <div className="flex items-center gap-2">
+        <PlayerAvatar number={player.number} />
+        <div className="min-w-0 flex-1">
+          <Link
+            href={`/players/${player.id}`}
+            className="font-semibold text-[#006BB6]"
+          >
+            {name}
+          </Link>
+          <p className="text-[10px] text-neutral-500">{pos}</p>
+        </div>
+      </div>
+      <div className="mt-3 grid grid-cols-4 gap-2">
+        {primary.map((s) => (
+          <div key={s.label} className="text-center">
+            <p className="text-[10px] uppercase text-neutral-500">{s.label}</p>
+            <p className="text-sm font-bold text-neutral-900">{s.value}</p>
+          </div>
+        ))}
+      </div>
+      <div className="mt-2 grid grid-cols-4 gap-x-2 gap-y-1 border-t border-neutral-100 pt-2">
+        {secondary.map((s) => (
+          <div key={s.label} className="text-center">
+            <p className="text-[9px] uppercase text-neutral-400">{s.label}</p>
+            <p className="text-xs font-medium text-neutral-700">{s.value}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MobileTotalsCard({
+  totals,
+  lang,
+}: {
+  totals: ReturnType<typeof aggregateBoxScores>;
+  lang: Language;
+}) {
+  return (
+    <div className="rounded-lg border-2 border-neutral-200 bg-neutral-50 px-3 py-2.5">
+      <p className="mb-2 text-xs font-bold uppercase tracking-wide text-neutral-500">
+        {t("totals", lang)}
+      </p>
+      <div className="grid grid-cols-4 gap-2 text-center">
+        {[
+          { label: t("pts", lang), value: totals.pts },
+          { label: t("reb", lang), value: totals.reb },
+          { label: t("ast", lang), value: totals.ast },
+          {
+            label: t("fgm", lang),
+            value: `${totals.fgm}/${totals.fga}`,
+          },
+        ].map((s) => (
+          <div key={s.label}>
+            <p className="text-[10px] uppercase text-neutral-500">{s.label}</p>
+            <p className="text-sm font-bold text-[#006BB6]">{s.value}</p>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import PageTransition from "@/components/PageTransition";
+import PageTitle from "@/components/PageTitle";
 import TeamCard from "@/components/TeamCard";
 import { teams } from "@/data/teams";
 import { useLanguage } from "@/context/LanguageContext";
@@ -11,10 +12,8 @@ export default function TeamsPage() {
 
   return (
     <PageTransition>
-      <div className="mx-auto max-w-7xl px-4 py-8 lg:px-6 lg:py-12">
-        <h1 className="mb-8 font-display text-3xl font-bold uppercase tracking-wide text-white">
-          {t("allTeamsTitle", lang)}
-        </h1>
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8 lg:px-6 lg:py-12">
+        <PageTitle className="mb-6 sm:mb-8">{t("allTeamsTitle", lang)}</PageTitle>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {teams.map((team, i) => (
             <TeamCard key={team.id} team={team} index={i} />

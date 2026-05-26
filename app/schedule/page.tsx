@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 import PageTransition from "@/components/PageTransition";
+import PageTitle from "@/components/PageTitle";
+import HorizontalScroll from "@/components/HorizontalScroll";
 import GameStatsSheet from "@/components/GameStatsSheet";
 import type { Game } from "@/lib/types";
 import { games } from "@/data/games";
@@ -42,15 +44,13 @@ export default function SchedulePage() {
   return (
     <PageTransition>
       <div className="mx-auto max-w-7xl px-4 py-8 lg:px-6 lg:py-12">
-        <h1 className="mb-8 font-display text-3xl font-bold uppercase tracking-wide text-white">
-          {t("fullSchedule", lang)}
-        </h1>
+        <PageTitle className="mb-6 sm:mb-8">{t("fullSchedule", lang)}</PageTitle>
 
-        <div className="mb-6 flex flex-wrap gap-4">
+        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
           <select
             value={teamFilter}
             onChange={(e) => setTeamFilter(e.target.value)}
-            className="rounded-lg border border-mba-border bg-mba-surface px-4 py-2 text-sm text-white outline-none focus:border-mba-red"
+            className="w-full rounded-lg border border-mba-border bg-mba-surface px-4 py-2.5 text-sm text-mba-text outline-none focus:border-mba-red sm:w-auto"
           >
             <option value="">{t("allTeams", lang)}</option>
             {teams.map((team) => (
@@ -62,7 +62,7 @@ export default function SchedulePage() {
           <select
             value={monthFilter}
             onChange={(e) => setMonthFilter(e.target.value)}
-            className="rounded-lg border border-mba-border bg-mba-surface px-4 py-2 text-sm text-white outline-none focus:border-mba-red"
+            className="w-full rounded-lg border border-mba-border bg-mba-surface px-4 py-2.5 text-sm text-mba-text outline-none focus:border-mba-red sm:w-auto"
           >
             <option value="">{t("allMonths", lang)}</option>
             {months.map((m) => (
@@ -73,6 +73,50 @@ export default function SchedulePage() {
           </select>
         </div>
 
+        <div className="space-y-2 md:hidden">
+          {filtered.map((game) => {
+            const home = getTeamById(game.homeTeamId);
+            const away = getTeamById(game.awayTeamId);
+            if (!home || !away) return null;
+            return (
+              <button
+                key={game.id}
+                type="button"
+                onClick={() => {
+                  setSelectedGame(game);
+                  setSheetOpen(true);
+                }}
+                className="w-full rounded-xl border border-mba-border bg-mba-surface p-4 text-left active:bg-mba-surfaceHover"
+              >
+                <div className="mb-2 flex items-center justify-between text-xs text-mba-muted">
+                  <span>{formatDate(game.date, lang)}</span>
+                  <span
+                    className={cn(
+                      "rounded-full px-2 py-0.5 text-[10px] font-bold uppercase",
+                      game.status === "live" && "bg-mba-red text-on-brand",
+                      game.status === "final" && "bg-mba-border text-mba-muted",
+                      game.status === "upcoming" && "bg-mba-gold/20 text-mba-gold"
+                    )}
+                  >
+                    {getStatusLabel(game.status, lang)}
+                  </span>
+                </div>
+                <p className="truncate text-sm font-medium text-mba-text">
+                  {lang === "mn" ? home.nameMn : home.name}
+                </p>
+                <p className="text-xs text-mba-muted">{t("vs", lang)}</p>
+                <p className="truncate text-sm font-medium text-mba-text">
+                  {lang === "mn" ? away.nameMn : away.name}
+                </p>
+                <p className="mt-2 font-display text-lg font-bold text-mba-text">
+                  {getGameScoreDisplay(game, lang)}
+                </p>
+              </button>
+            );
+          })}
+        </div>
+
+        <HorizontalScroll className="hidden md:block">
         <div className="overflow-x-auto rounded-xl border border-mba-border">
           <table className="w-full min-w-[640px] text-sm">
             <thead>
@@ -130,6 +174,7 @@ export default function SchedulePage() {
             </tbody>
           </table>
         </div>
+        </HorizontalScroll>
 
         <GameStatsSheet
           game={selectedGame}

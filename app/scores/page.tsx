@@ -1,6 +1,7 @@
 "use client";
 
 import PageTransition from "@/components/PageTransition";
+import PageTitle from "@/components/PageTitle";
 import GameCard from "@/components/GameCard";
 import ScoreBoard from "@/components/ScoreBoard";
 import SectionHeader from "@/components/SectionHeader";
@@ -30,10 +31,8 @@ export default function ScoresPage() {
 
   return (
     <PageTransition>
-      <div className="mx-auto max-w-7xl px-4 py-8 lg:px-6 lg:py-12">
-        <h1 className="mb-8 font-display text-3xl font-bold uppercase tracking-wide text-white">
-          {t("scoresTitle", lang)}
-        </h1>
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8 lg:px-6 lg:py-12">
+        <PageTitle className="mb-6 sm:mb-8">{t("scoresTitle", lang)}</PageTitle>
 
         {live.length > 0 && (
           <section className="mb-12 space-y-4">

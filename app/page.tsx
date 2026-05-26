@@ -1,6 +1,7 @@
 "use client";
 
 import PageTransition from "@/components/PageTransition";
+import PageTitle from "@/components/PageTitle";
 import LiveGamesCarousel from "@/components/LiveGamesCarousel";
 import StandingsTable from "@/components/StandingsTable";
 import GameCard from "@/components/GameCard";
@@ -28,17 +29,17 @@ export default function HomePage() {
 
   return (
     <PageTransition>
-      <div className="mx-auto max-w-7xl px-4 py-8 lg:px-6 lg:py-12">
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8 lg:px-6 lg:py-12">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           className="mb-10"
         >
-          <h1 className="font-display text-3xl font-bold uppercase tracking-wider text-white md:text-4xl">
+          <PageTitle className="tracking-wider md:text-4xl">
             {lang === "mn"
               ? "\u041c\u043e\u043d\u0433\u043e\u043b\u044b\u043d \u0421\u0430\u0433\u0441\u0430\u043d\u0431\u04e9\u043c\u0431\u04e9\u0433\u0438\u0439\u043d \u0425\u043e\u043b\u0431\u043e\u043e"
               : "Mongolian Basketball League"}
-          </h1>
+          </PageTitle>
           <p className="mt-2 text-mba-muted">
             {lang === "mn"
               ? "2024-25 \u0443\u043b\u0438\u0440\u043b\u044b\u043d \u0430\u043b\u0431\u0430\u043d \u043c\u044d\u0434\u044d\u044d\u043b\u043b\u0438\u0439\u043d \u0441\u0430\u0439\u0442"
