@@ -54,7 +54,7 @@ export default function StandingsTable({
             <th className="px-4 py-3">
               <button
                 onClick={() => handleSort("rank")}
-                className="flex items-center gap-1 hover:text-white"
+                className="flex items-center gap-1 hover:text-mba-text"
               >
                 {t("rank", lang)} <SortIcon col="rank" />
               </button>
@@ -63,7 +63,7 @@ export default function StandingsTable({
             <th className="px-4 py-3">
               <button
                 onClick={() => handleSort("wins")}
-                className="flex items-center gap-1 hover:text-white"
+                className="flex items-center gap-1 hover:text-mba-text"
               >
                 {t("wins", lang)} <SortIcon col="wins" />
               </button>
@@ -71,7 +71,7 @@ export default function StandingsTable({
             <th className="px-4 py-3">
               <button
                 onClick={() => handleSort("losses")}
-                className="flex items-center gap-1 hover:text-white"
+                className="flex items-center gap-1 hover:text-mba-text"
               >
                 {t("losses", lang)} <SortIcon col="losses" />
               </button>
@@ -79,7 +79,7 @@ export default function StandingsTable({
             <th className="px-4 py-3">
               <button
                 onClick={() => handleSort("pct")}
-                className="flex items-center gap-1 hover:text-white"
+                className="flex items-center gap-1 hover:text-mba-text"
               >
                 {t("pct", lang)} <SortIcon col="pct" />
               </button>
@@ -121,7 +121,7 @@ export default function StandingsTable({
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
                     <span
-                      className="flex h-7 w-7 items-center justify-center rounded text-[10px] font-bold text-white"
+                      className="on-color flex h-7 w-7 items-center justify-center rounded text-[10px] font-bold"
                       style={{ backgroundColor: team.primaryColor }}
                     >
                       {team.abbreviation}

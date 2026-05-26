@@ -1,7 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import type { Game } from "@/lib/types";
+import GameStatsSheet from "@/components/GameStatsSheet";
 import { useLanguage } from "@/context/LanguageContext";
 import {
   getTeamById,
@@ -19,6 +21,7 @@ interface ScoreBoardProps {
 
 export default function ScoreBoard({ game, featured = false }: ScoreBoardProps) {
   const { lang } = useLanguage();
+  const [sheetOpen, setSheetOpen] = useState(false);
   const home = getTeamById(game.homeTeamId);
   const away = getTeamById(game.awayTeamId);
   if (!home || !away) return null;
@@ -29,10 +32,13 @@ export default function ScoreBoard({ game, featured = false }: ScoreBoardProps) 
 
   if (featured) {
     return (
-      <motion.section
+      <>
+      <motion.button
+        type="button"
+        onClick={() => setSheetOpen(true)}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative overflow-hidden rounded-2xl border border-mba-border bg-hero-gradient"
+        className="relative w-full overflow-hidden rounded-2xl border border-mba-border bg-hero-gradient text-left transition-colors hover:border-mba-red/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-mba-red"
       >
         <div className="absolute inset-0 bg-[url('/images/court-pattern.svg')] opacity-5" />
         <div className="relative px-6 py-10 md:px-10 md:py-14">
@@ -41,7 +47,7 @@ export default function ScoreBoard({ game, featured = false }: ScoreBoardProps) 
               {t("featuredGame", lang)}
             </span>
             {game.status === "live" && (
-              <span className="flex items-center gap-1.5 rounded-full bg-mba-red px-3 py-1 text-xs font-bold text-white">
+              <span className="flex items-center gap-1.5 rounded-full bg-mba-red px-3 py-1 text-xs font-bold text-on-brand">
                 <span className="h-2 w-2 animate-pulse rounded-full bg-white" />
                 {t("liveNow", lang)}
               </span>
@@ -69,29 +75,46 @@ export default function ScoreBoard({ game, featured = false }: ScoreBoardProps) 
             <TeamBlock team={away} name={awayName} score={game.awayScore} isLive={game.status === "live"} align="right" />
           </div>
         </div>
-      </motion.section>
+      </motion.button>
+      <GameStatsSheet
+        game={game}
+        open={sheetOpen}
+        onClose={() => setSheetOpen(false)}
+      />
+      </>
     );
   }
 
   return (
-    <div className="rounded-xl border border-mba-border bg-mba-surface p-4">
-      <div className="mb-2 flex justify-between text-xs text-mba-muted">
-        <span>{formatDate(game.date, lang)}</span>
-        <span
-          className={cn(
-            game.status === "live" && "text-mba-red font-bold",
-            game.status === "upcoming" && "text-mba-gold"
-          )}
-        >
-          {getStatusLabel(game.status, lang)}
-        </span>
-      </div>
-      <div className="flex items-center justify-between">
-        <span className="font-medium">{homeName}</span>
-        <span className="font-display text-xl font-bold">{score}</span>
-        <span className="font-medium">{awayName}</span>
-      </div>
-    </div>
+    <>
+      <button
+        type="button"
+        onClick={() => setSheetOpen(true)}
+        className="w-full rounded-xl border border-mba-border bg-mba-surface p-4 text-left transition-colors hover:border-mba-red/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-mba-red"
+      >
+        <div className="mb-2 flex justify-between text-xs text-mba-muted">
+          <span>{formatDate(game.date, lang)}</span>
+          <span
+            className={cn(
+              game.status === "live" && "text-mba-red font-bold",
+              game.status === "upcoming" && "text-mba-gold"
+            )}
+          >
+            {getStatusLabel(game.status, lang)}
+          </span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="font-medium">{homeName}</span>
+          <span className="font-display text-xl font-bold">{score}</span>
+          <span className="font-medium">{awayName}</span>
+        </div>
+      </button>
+      <GameStatsSheet
+        game={game}
+        open={sheetOpen}
+        onClose={() => setSheetOpen(false)}
+      />
+    </>
   );
 }
 
@@ -116,7 +139,7 @@ function TeamBlock({
       )}
     >
       <div
-        className="flex h-20 w-20 items-center justify-center rounded-2xl font-display text-2xl font-bold text-white shadow-lg md:h-24 md:w-24"
+        className="on-color flex h-20 w-20 items-center justify-center rounded-2xl font-display text-2xl font-bold shadow-lg md:h-24 md:w-24"
         style={{ backgroundColor: team.primaryColor }}
       >
         {team.abbreviation}

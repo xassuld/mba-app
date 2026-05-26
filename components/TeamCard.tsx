@@ -32,7 +32,7 @@ export default function TeamCard({ team, index = 0 }: TeamCardProps) {
           }}
         >
           <div
-            className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-white/20 font-display text-xl font-bold text-white"
+            className="on-color flex h-16 w-16 items-center justify-center rounded-full border-2 border-white/20 font-display text-xl font-bold"
             style={{ backgroundColor: team.primaryColor }}
           >
             {getInitials(team.abbreviation)}

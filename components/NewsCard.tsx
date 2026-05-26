@@ -39,7 +39,7 @@ export default function NewsCard({ article, index = 0 }: NewsCardProps) {
               MBA
             </span>
           </div>
-          <span className="absolute left-3 top-3 rounded-full bg-mba-red px-2.5 py-0.5 text-[10px] font-bold uppercase text-white">
+          <span className="absolute left-3 top-3 rounded-full bg-mba-red px-2.5 py-0.5 text-[10px] font-bold uppercase text-on-brand">
             {category}
           </span>
         </div>

@@ -2,6 +2,8 @@ import type { Game } from "@/lib/types";
 
 export const games: Game[] = [
   { id: "g1", date: "2025-05-25", time: "19:00", homeTeamId: "bch-knights", awayTeamId: "bim-bishrelt", homeScore: 78, awayScore: 72, status: "live", quarter: "Q3 4:32", venue: "MBA Arena", venueMn: "MBA Arena" },
+  { id: "g25", date: "2025-05-25", time: "17:00", homeTeamId: "ihc-apes", awayTeamId: "erdenet-miners", homeScore: 54, awayScore: 58, status: "live", quarter: "Q2 8:15", venue: "IHC Gymnasium", venueMn: "IHC Gymnasium" },
+  { id: "g26", date: "2025-05-25", time: "20:30", homeTeamId: "darkhan-united", awayTeamId: "khas-knights", homeScore: 41, awayScore: 39, status: "live", quarter: "Q2 1:42", venue: "Darkhan Arena", venueMn: "Darkhan Arena" },
   { id: "g2", date: "2025-05-24", time: "18:00", homeTeamId: "erdenet-miners", awayTeamId: "darkhan-united", homeScore: 102, awayScore: 98, status: "final", venue: "Erdenet Sports Hall", venueMn: "Erdenet Sports Hall" },
   { id: "g3", date: "2025-05-24", time: "16:00", homeTeamId: "ihc-apes", awayTeamId: "khas-knights", homeScore: 88, awayScore: 91, status: "final", venue: "IHC Gymnasium", venueMn: "IHC Gymnasium" },
   { id: "g4", date: "2025-05-23", time: "19:30", homeTeamId: "khovd-falcons", awayTeamId: "mongolians-bt", homeScore: 95, awayScore: 89, status: "final", venue: "Khovd Arena", venueMn: "Khovd Arena" },
@@ -41,6 +43,10 @@ export function getUpcomingGames(limit = 3): Game[] {
 }
 
 export function getLiveGames(): Game[] {
+  return games.filter((g) => g.status === "live");
+}
+
+export function getOngoingGames(): Game[] {
   return games.filter((g) => g.status === "live");
 }
 

@@ -42,7 +42,7 @@ export default function NewsArticlePage({
           <ArrowLeft size={16} />
           {lang === "mn" ? "\u0411\u0443\u0446\u0430\u0445" : "Back to News"}
         </Link>
-        <span className="rounded-full bg-mba-red px-3 py-1 text-xs font-bold uppercase text-white">
+        <span className="rounded-full bg-mba-red px-3 py-1 text-xs font-bold uppercase text-on-brand">
           {category}
         </span>
         <h1 className="mt-4 font-display text-3xl font-bold text-white md:text-4xl">

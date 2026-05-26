@@ -3,49 +3,56 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --mba-bg: #0a0a0a;
-    --mba-surface: #111111;
-  }
-
+  :root,
   html.dark {
     color-scheme: dark;
+    --mba-bg: 10 10 10;
+    --mba-surface: 17 17 17;
+    --mba-surface-hover: 26 26 26;
+    --mba-border: 42 42 42;
+    --mba-text: 255 255 255;
+    --mba-muted: 156 163 175;
+    --hero-gradient: linear-gradient(
+      135deg,
+      rgba(200, 16, 46, 0.15) 0%,
+      rgb(10, 10, 10) 50%,
+      rgba(245, 166, 35, 0.08) 100%
+    );
   }
 
-  html.light body {
-    @apply bg-gray-50 text-gray-900;
-  }
-
-  html.light .bg-mba-bg {
-    @apply bg-gray-50;
-  }
-
-  html.light .bg-mba-surface {
-    @apply bg-white border-gray-200;
-  }
-
-  html.light .bg-mba-surfaceHover {
-    @apply bg-gray-100;
-  }
-
-  html.light .border-mba-border {
-    @apply border-gray-200;
-  }
-
-  html.light .text-white {
-    @apply text-gray-900;
-  }
-
-  html.light .text-mba-muted {
-    @apply text-gray-500;
-  }
-
-  html.light header {
-    @apply bg-white/95 border-gray-200;
+  html.light {
+    color-scheme: light;
+    --mba-bg: 249 250 251;
+    --mba-surface: 255 255 255;
+    --mba-surface-hover: 243 244 246;
+    --mba-border: 229 231 235;
+    --mba-text: 17 24 39;
+    --mba-muted: 107 114 128;
+    --hero-gradient: linear-gradient(
+      135deg,
+      rgba(200, 16, 46, 0.06) 0%,
+      rgb(255, 255, 255) 45%,
+      rgba(245, 166, 35, 0.05) 100%
+    );
   }
 
   body {
-    @apply bg-mba-bg text-white antialiased;
+    @apply bg-mba-bg text-mba-text antialiased;
+  }
+
+  /* White text on colored badges / team marks */
+  .text-on-brand,
+  .on-color {
+    @apply text-white;
+  }
+
+  html.light .text-white {
+    color: rgb(var(--mba-text) / 1);
+  }
+
+  html.light .text-on-brand,
+  html.light .on-color {
+    color: #ffffff;
   }
 }
 
@@ -55,5 +62,14 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }

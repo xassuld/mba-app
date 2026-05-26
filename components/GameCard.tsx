@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { Game } from "@/lib/types";
 import { useLanguage } from "@/context/LanguageContext";
 import {
@@ -11,6 +12,7 @@ import {
 } from "@/lib/utils";
 import { t } from "@/lib/i18n";
 import { motion } from "framer-motion";
+import GameStatsSheet from "@/components/GameStatsSheet";
 
 interface GameCardProps {
   game: Game;
@@ -19,6 +21,7 @@ interface GameCardProps {
 
 export default function GameCard({ game, compact = false }: GameCardProps) {
   const { lang } = useLanguage();
+  const [sheetOpen, setSheetOpen] = useState(false);
   const home = getTeamById(game.homeTeamId);
   const away = getTeamById(game.awayTeamId);
   if (!home || !away) return null;
@@ -28,10 +31,14 @@ export default function GameCard({ game, compact = false }: GameCardProps) {
   const score = getGameScoreDisplay(game, lang);
 
   return (
-    <motion.div
+    <>
+    <motion.button
+      type="button"
+      onClick={() => setSheetOpen(true)}
       whileHover={{ scale: 1.01 }}
       className={cn(
-        "rounded-xl border border-mba-border bg-mba-surface transition-colors hover:border-mba-border/80",
+        "w-full rounded-xl border border-mba-border bg-mba-surface text-left transition-colors",
+        "hover:border-mba-red/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-mba-red",
         compact ? "p-3" : "p-4"
       )}
     >
@@ -40,7 +47,7 @@ export default function GameCard({ game, compact = false }: GameCardProps) {
         <span
           className={cn(
             "rounded-full px-2 py-0.5 font-bold uppercase",
-            game.status === "live" && "bg-mba-red text-white animate-pulse",
+            game.status === "live" && "bg-mba-red text-on-brand animate-pulse",
             game.status === "final" && "bg-mba-border text-mba-muted",
             game.status === "upcoming" && "bg-mba-gold/20 text-mba-gold"
           )}
@@ -84,6 +91,12 @@ export default function GameCard({ game, compact = false }: GameCardProps) {
           </p>
         </div>
       </div>
-    </motion.div>
+    </motion.button>
+    <GameStatsSheet
+      game={game}
+      open={sheetOpen}
+      onClose={() => setSheetOpen(false)}
+    />
+    </>
   );
 }

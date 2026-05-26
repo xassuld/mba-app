@@ -11,14 +11,14 @@ const config: Config = {
     extend: {
       colors: {
         mba: {
-          bg: "#0A0A0A",
-          surface: "#111111",
-          surfaceHover: "#1A1A1A",
-          border: "#2A2A2A",
+          bg: "rgb(var(--mba-bg) / <alpha-value>)",
+          surface: "rgb(var(--mba-surface) / <alpha-value>)",
+          surfaceHover: "rgb(var(--mba-surface-hover) / <alpha-value>)",
+          border: "rgb(var(--mba-border) / <alpha-value>)",
+          text: "rgb(var(--mba-text) / <alpha-value>)",
+          muted: "rgb(var(--mba-muted) / <alpha-value>)",
           red: "#C8102E",
           gold: "#F5A623",
-          text: "#FFFFFF",
-          muted: "#9CA3AF",
         },
       },
       fontFamily: {
@@ -26,8 +26,7 @@ const config: Config = {
         display: ["var(--font-oswald)", "system-ui", "sans-serif"],
       },
       backgroundImage: {
-        "hero-gradient":
-          "linear-gradient(135deg, rgba(200,16,46,0.15) 0%, rgba(10,10,10,1) 50%, rgba(245,166,35,0.08) 100%)",
+        "hero-gradient": "var(--hero-gradient)",
       },
     },
   },

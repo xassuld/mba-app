@@ -42,13 +42,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const value = { theme, toggleTheme };
 
   return (
-    <ThemeContext.Provider value={value}>
-      {!mounted ? (
-        <div className="min-h-screen bg-mba-bg">{children}</div>
-      ) : (
-        children
-      )}
-    </ThemeContext.Provider>
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
   );
 }
 

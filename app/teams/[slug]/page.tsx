@@ -54,7 +54,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
         >
           <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
             <div
-              className="flex h-24 w-24 items-center justify-center rounded-2xl font-display text-3xl font-bold text-white"
+              className="on-color flex h-24 w-24 items-center justify-center rounded-2xl font-display text-3xl font-bold"
               style={{ backgroundColor: team.primaryColor }}
             >
               {getInitials(team.abbreviation)}
@@ -82,7 +82,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
                 "px-4 py-3 text-sm font-semibold uppercase tracking-wide transition-colors",
                 tab === tb.id
                   ? "border-b-2 border-mba-red text-mba-red"
-                  : "text-mba-muted hover:text-white"
+                  : "text-mba-muted hover:text-mba-text"
               )}
             >
               {tb.label}

@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 import PageTransition from "@/components/PageTransition";
+import GameStatsSheet from "@/components/GameStatsSheet";
+import type { Game } from "@/lib/types";
 import { games } from "@/data/games";
 import { teams } from "@/data/teams";
 import { useLanguage } from "@/context/LanguageContext";
@@ -21,6 +23,8 @@ export default function SchedulePage() {
   const { lang } = useLanguage();
   const [teamFilter, setTeamFilter] = useState("");
   const [monthFilter, setMonthFilter] = useState("");
+  const [selectedGame, setSelectedGame] = useState<Game | null>(null);
+  const [sheetOpen, setSheetOpen] = useState(false);
   const months = getMonthOptions(games);
 
   const filtered = useMemo(() => {
@@ -89,7 +93,11 @@ export default function SchedulePage() {
                 return (
                   <tr
                     key={game.id}
-                    className="border-b border-mba-border/50 hover:bg-mba-surfaceHover"
+                    onClick={() => {
+                      setSelectedGame(game);
+                      setSheetOpen(true);
+                    }}
+                    className="cursor-pointer border-b border-mba-border/50 hover:bg-mba-surfaceHover"
                   >
                     <td className="px-4 py-3 text-mba-muted">
                       {formatDate(game.date, lang)}
@@ -108,7 +116,7 @@ export default function SchedulePage() {
                       <span
                         className={cn(
                           "rounded-full px-2 py-0.5 text-xs font-bold uppercase",
-                          game.status === "live" && "bg-mba-red text-white",
+                          game.status === "live" && "bg-mba-red text-on-brand",
                           game.status === "final" && "bg-mba-border text-mba-muted",
                           game.status === "upcoming" && "bg-mba-gold/20 text-mba-gold"
                         )}
@@ -122,6 +130,12 @@ export default function SchedulePage() {
             </tbody>
           </table>
         </div>
+
+        <GameStatsSheet
+          game={selectedGame}
+          open={sheetOpen}
+          onClose={() => setSheetOpen(false)}
+        />
       </div>
     </PageTransition>
   );

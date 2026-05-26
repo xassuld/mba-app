@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Search, Sun, Moon } from "lucide-react";
 import LanguageToggle from "./LanguageToggle";
+import LeagueLogo from "./LeagueLogo";
 import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 import { navItems } from "@/lib/i18n";
@@ -46,21 +47,9 @@ export default function Navbar() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-mba-border bg-mba-bg/95 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-mba-border bg-mba-surface/95 shadow-sm backdrop-blur-md dark:shadow-none">
       <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 lg:px-6">
-        <Link href="/" className="flex shrink-0 items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-mba-red font-display text-lg font-bold text-white">
-            MBA
-          </div>
-          <div className="hidden sm:block">
-            <p className="font-display text-sm font-bold leading-tight tracking-wide text-white">
-              MONGOLIAN
-            </p>
-            <p className="text-[10px] font-medium uppercase tracking-widest text-mba-gold">
-              Basketball
-            </p>
-          </div>
-        </Link>
+        <LeagueLogo size="nav" link />
 
         <div className="hidden items-center gap-1 lg:flex">
           {navItems.map((item) => (
@@ -71,7 +60,7 @@ export default function Navbar() {
                 "rounded-md px-3 py-2 text-sm font-medium transition-colors",
                 isActive(item.href)
                   ? "text-mba-red"
-                  : "text-mba-muted hover:text-white"
+                  : "text-mba-muted hover:text-mba-text"
               )}
             >
               {lang === "mn" ? item.labelMn : item.labelEn}
@@ -92,7 +81,7 @@ export default function Navbar() {
                 }}
                 onFocus={() => setSearchOpen(true)}
                 placeholder={t("search", lang)}
-                className="w-40 bg-transparent pl-2 text-sm text-white outline-none placeholder:text-mba-muted lg:w-52"
+                className="w-40 bg-transparent pl-2 text-sm text-mba-text outline-none placeholder:text-mba-muted lg:w-52"
               />
             </div>
             <AnimatePresence>
@@ -141,7 +130,7 @@ export default function Navbar() {
           <LanguageToggle className="hidden sm:flex" />
 
           <button
-            className="rounded-md border border-mba-border p-2 text-white lg:hidden"
+            className="rounded-md border border-mba-border p-2 text-mba-text lg:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Menu"
           >
@@ -166,7 +155,7 @@ export default function Navbar() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder={t("search", lang)}
-                  className="flex-1 bg-transparent pl-2 text-sm text-white outline-none"
+                  className="flex-1 bg-transparent pl-2 text-sm text-mba-text outline-none"
                 />
               </div>
               {query &&

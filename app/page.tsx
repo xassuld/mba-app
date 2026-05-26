@@ -1,16 +1,15 @@
 "use client";
 
 import PageTransition from "@/components/PageTransition";
-import ScoreBoard from "@/components/ScoreBoard";
+import LiveGamesCarousel from "@/components/LiveGamesCarousel";
 import StandingsTable from "@/components/StandingsTable";
 import GameCard from "@/components/GameCard";
 import NewsCard from "@/components/NewsCard";
 import PlayerCard from "@/components/PlayerCard";
 import SectionHeader from "@/components/SectionHeader";
-import { games, featuredGameId } from "@/data/games";
 import { standings } from "@/data/standings";
 import { getLatestNews } from "@/data/news";
-import { getUpcomingGames, getGameById } from "@/data/games";
+import { getUpcomingGames } from "@/data/games";
 import {
   getPlayerById,
   getPlayerStats,
@@ -21,7 +20,6 @@ import { motion } from "framer-motion";
 
 export default function HomePage() {
   const { lang } = useLanguage();
-  const featuredGame = getGameById(featuredGameId) ?? games[0];
   const topStandings = standings.slice(0, 5);
   const upcoming = getUpcomingGames(3);
   const latestNews = getLatestNews(3);
@@ -48,9 +46,7 @@ export default function HomePage() {
           </p>
         </motion.div>
 
-        <div className="mb-12">
-          <ScoreBoard game={featuredGame} featured />
-        </div>
+        <LiveGamesCarousel />
 
         <div className="grid gap-12 lg:grid-cols-3">
           <div className="lg:col-span-2 space-y-12">

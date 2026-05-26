@@ -21,7 +21,24 @@ export const metadata: Metadata = {
   title: "MBA | Mongolian Basketball Association",
   description:
     "Official home of the Mongolian Basketball League - scores, standings, schedules, teams, and news.",
+  icons: {
+    icon: "/images/league-logo.png",
+    apple: "/images/league-logo.png",
+  },
 };
+
+const themeInitScript = `
+(function () {
+  try {
+    var stored = localStorage.getItem("mba-theme");
+    var root = document.documentElement;
+    root.classList.remove("dark", "light");
+    root.classList.add(stored === "light" ? "light" : "dark");
+  } catch (e) {
+    document.documentElement.classList.add("dark");
+  }
+})();
+`;
 
 export default function RootLayout({
   children,
@@ -29,7 +46,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="mn" className="dark" suppressHydrationWarning>
+    <html lang="mn" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body
         className={`${inter.variable} ${oswald.variable} font-sans flex min-h-screen flex-col`}
       >

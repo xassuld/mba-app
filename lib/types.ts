@@ -82,6 +82,81 @@ export interface Game {
   venueMn: string;
 }
 
+export interface QuarterScore {
+  label: string;
+  home: number;
+  away: number;
+}
+
+export interface TeamGameStats {
+  fgPct: number;
+  threePct: number;
+  ftPct: number;
+  reb: number;
+  ast: number;
+  to: number;
+}
+
+export interface GameLeader {
+  playerId: string;
+  pts: number;
+  reb: number;
+  ast: number;
+}
+
+/** Per-player line in a box score; use `dnp` when the player did not play. */
+export interface PlayerBoxScore {
+  playerId: string;
+  dnp?: string;
+  min?: number;
+  fgm?: number;
+  fga?: number;
+  tpm?: number;
+  tpa?: number;
+  ftm?: number;
+  fta?: number;
+  oreb?: number;
+  dreb?: number;
+  reb?: number;
+  ast?: number;
+  stl?: number;
+  blk?: number;
+  to?: number;
+  pf?: number;
+  pts?: number;
+  plusMinus?: number;
+}
+
+export interface BoxScoreTotals {
+  min: number;
+  fgm: number;
+  fga: number;
+  tpm: number;
+  tpa: number;
+  ftm: number;
+  fta: number;
+  oreb: number;
+  dreb: number;
+  reb: number;
+  ast: number;
+  stl: number;
+  blk: number;
+  to: number;
+  pf: number;
+  pts: number;
+}
+
+export interface GameDetailStats {
+  gameId: string;
+  quarters: QuarterScore[];
+  home: TeamGameStats;
+  away: TeamGameStats;
+  homeLeaders: GameLeader[];
+  awayLeaders: GameLeader[];
+  homeBox: PlayerBoxScore[];
+  awayBox: PlayerBoxScore[];
+}
+
 export interface Standing {
   teamId: string;
   rank: number;
