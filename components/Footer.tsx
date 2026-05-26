@@ -19,7 +19,7 @@ export default function Footer() {
               <LeagueLogo size="footer" className="mb-3" />
               <p className="text-sm text-mba-muted">
                 {lang === "mn"
-                  ? "\u041c\u043e\u043d\u0433\u043e\u043b\u044b\u043d \u0411\u0430\u0441\u043a\u0435\u0442\u0431\u043e\u043b\u044b\u043d \u0425\u043e\u043b\u0431\u043e\u043e\u043d\u044b \u041d\u044d\u0432\u0442\u0440\u04e9\u04af"
+                  ? "\u041c\u043e\u043d\u0433\u043e\u043b\u044b\u043d \u0421\u0430\u0433\u0441\u0430\u043d\u0431\u04e9\u043c\u0431\u04e9\u0433\u0438\u0439\u043d \u0425\u043e\u043b\u0431\u043e\u043e\u043d\u044b \u041d\u044d\u0432\u0442\u0440\u04e9\u04af"
                   : "Mongolian Basketball Association — Official League Portal"}
               </p>
             </div>

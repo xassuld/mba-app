@@ -36,7 +36,7 @@ export default function HomePage() {
         >
           <h1 className="font-display text-3xl font-bold uppercase tracking-wider text-white md:text-4xl">
             {lang === "mn"
-              ? "\u041c\u043e\u043d\u0433\u043e\u043b\u044b\u043d \u0411\u0430\u0441\u043a\u0435\u0442\u0431\u043e\u043b\u044b\u043d \u0425\u043e\u043b\u0431\u043e\u043e"
+              ? "\u041c\u043e\u043d\u0433\u043e\u043b\u044b\u043d \u0421\u0430\u0433\u0441\u0430\u043d\u0431\u04e9\u043c\u0431\u04e9\u0433\u0438\u0439\u043d \u0425\u043e\u043b\u0431\u043e\u043e"
               : "Mongolian Basketball League"}
           </h1>
           <p className="mt-2 text-mba-muted">
